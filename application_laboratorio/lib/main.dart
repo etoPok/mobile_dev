@@ -28,9 +28,9 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Aplicación Flutter'),
     );
   }
 }
@@ -64,6 +64,20 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
+    });
+
+  }
+
+  void _decreaseCounter() {
+    setState(() {
+      if (_counter <= 0) return;
+      _counter--;
+    });
+  }
+
+  void _restartCounter() {
+    setState(() {
+      _counter = 0;
     });
   }
 
@@ -104,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text('You have pushed the button this many times:'),
+            const Text('Presione el botón varias veces:'),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
@@ -112,11 +126,20 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: _incrementCounter,
+      //   tooltip: 'Increment',
+      //   child: const Icon(Icons.ac_unit_sharp),
+      // ), // This trailing comma makes auto-formatting nicer for build methods.
+      persistentFooterButtons: getPersistentFooterButtons,
     );
+  }
+
+  List<Widget> get getPersistentFooterButtons {
+    return <Widget>[
+      TextButton(onPressed: _incrementCounter, child: Text("Button (+)")),
+      TextButton(onPressed: _decreaseCounter, child: const Text("Button (-)")),
+      TextButton(onPressed: _restartCounter, child: const Text("Restart"))
+    ];
   }
 }
